@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "open_sansregular";
+    src: url("/fonts/opensans-regular-webfont.eot");
+    src: url("/fonts/opensans-regular-webfont.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/opensans-regular-webfont.woff") format("woff"),
+    url("/fonts/opensans-regular-webfont.ttf") format("truetype"),
+    url("/fonts/opensans-regular-webfont.svg#open_sansregular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1,body,p {
+    font-family: open_sansregular, sans-serif;
+}
+
+.table_row {
+    clear: both;
+    display: table-row;
+}
+
+.table_header {
+    font-weight: bold;
+}
+
+.table_cell {
+    display: table-cell;
+    width: 150px;
+}
+
+.add_asset_button, .edit_asset_button {
+    font-weight: bold;
+}
+
+.hide{
+    display: none;
+}
+
+.asset_info {
+    width: 450px;
+}
+.success_message, .failure_message {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.success_message {
+    background: #AAFFAA;
+    border: 1px solid #008800;
+    color: #008800;
+}
+.failure_message {
+    background: #FFAAAA;
+    border: 1px solid #880000;
+    color: #880000;
+}

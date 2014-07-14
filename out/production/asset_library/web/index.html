@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <script src="js/$.js" type="application/javascript"></script>
+    <script src="js/x.js" type="application/javascript"></script>
+    <script src="js/assets.js" type="application/javascript"></script>
+    <script>
+        window.onload = function() {
+            Assets.Controller.init("assetsTarget", "addAssetButton");
+        };
+    </script>
+</head>
+<body>
+<h1>Asset Repository</h1>
+<button class="add_asset_button" id="addAssetButton">+ Add Asset</button>
+<h3>List of Assets</h3>
+<div id="assetsTarget"></div>
+
+</body>
+</html>

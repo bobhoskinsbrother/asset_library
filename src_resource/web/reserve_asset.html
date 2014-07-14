@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <script src="js/$.js" type="application/javascript"></script>
+    <script src="js/x.js" type="application/javascript"></script>
+    <script src="js/url.js" type="application/javascript"></script>
+    <script src="js/reserve_asset.js" type="application/javascript"></script>
+    <script>
+        window.onload = function() {
+            ReserveAsset.Controller.init("reserveAssetForms", "assetName", "person", "reserveAsset");
+        };
+    </script>
+</head>
+<body>
+
+
+<div class="reserve_asset" id="reserveAssetForms">
+    <h1>Reserve Asset</h1>
+    <h2 id="assetName"></h2>
+    <div id="notification"></div>
+    <div>
+        <form id="reserveAsset" name="reserveAsset">
+            <input type="hidden" name="assetUuid" id="assetUuid">
+            <label for="personUuid">Reserve to: </label><select id="personUuid" name="personUuid"></select>
+            <button type="submit">Reserve</button>
+
+        </form>
+    </div>
+    <hr/>
+    <p>Name not listed?  Add it below, and it'll appear in the list</p>
+    <div>
+        <form id="person" name="person">
+            <span>Person:</span>
+            <span><input type="text" required="required" id="firstName" name="firstName" placeholder="First Name"></span>
+            <span><input type="text" required="required" id="lastName" name="lastName" placeholder="Last Name"></span>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</div>
+<div id="assetNotAvailable" class="hide">
+    <h1>Not Available</h1>
+    <p>Unfortunately, that asset is not available at the moment.  <span id="personWhoReservedTheAsset"></span> has reserved the asset.
+        Ask them to check it back in</p>
+</div>
+
+</body>
+</html>
