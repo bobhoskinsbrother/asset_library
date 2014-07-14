@@ -20,6 +20,7 @@ public final class AssetServer {
 
         configuration.addHttpHandler(new AssetDispatcher(repository), "/asset");
         configuration.addHttpHandler(new ReserveAssetDispatcher(repository), "/reserve_asset");
+        configuration.addHttpHandler(new ReserveAssetsDispatcher(repository), "/reserve_assets");
         configuration.addHttpHandler(new IsAvailableDispatcher(repository), "/is_available");
         configuration.addHttpHandler(new AssetsDispatcher(repository), "/assets");
         configuration.addHttpHandler(new PersonDispatcher(repository), "/person");

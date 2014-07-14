@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 
 public final class Deserializer {
 
+    private Deserializer(){}
+
     public static ReserveAsset deserializeReserveAsset(String s) {
         return deserialize(s, ReserveAsset.class);
     }

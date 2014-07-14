@@ -34,7 +34,7 @@ public class Asset implements Identifiable {
     }
 
     @Override public boolean uuidIsPresent() {
-        return uuid != null;
+        return uuid != null && !"".equals(uuid);
     }
 
     @Override public void generateUuid() {

@@ -59,6 +59,13 @@ public final class ObjectRepository {
     public Asset getAsset(String uuid) throws NotFoundException {
         return assets.get(uuid);
     }
+    public ReserveAsset getReserveAsset(String uuid) throws NotFoundException {
+        uk.co.itstherules.model.ReserveAsset reserveAsset = reserveAssets.get(uuid);
+        if(reserveAsset == null) {
+            throw new NotFoundException();
+        }
+        return reserveAsset;
+    }
 
     public Person getPerson(String uuid) {
         return people.get(uuid);
@@ -95,6 +102,7 @@ public final class ObjectRepository {
 
     public boolean isAssetAvailable(String assetUuid) {
         Check.that().isNotNull(assetUuid);
+        if(!assets.contains(assetUuid)) return false;
         final Collection<ReserveAsset> values = reserveAssets.values();
         for (ReserveAsset value : values) {
             if(assetUuid.equals(value.getAssetUuid())) {
@@ -104,7 +112,7 @@ public final class ObjectRepository {
         return true;
     }
 
-    public uk.co.itstherules.model.Person personWhoReservedAsset(String assetUuid) {
+    public uk.co.itstherules.model.Person personWhoReservedAsset(String assetUuid) throws NotFoundException {
         Check.that().isNotNull(assetUuid);
         final Collection<ReserveAsset> values = reserveAssets.values();
         for (ReserveAsset reserveAsset : values) {
@@ -113,5 +121,9 @@ public final class ObjectRepository {
             }
         }
         throw new IllegalArgumentException();
+    }
+
+    public Collection<ReserveAsset> allReserveAssets() {
+        return reserveAssets.values();
     }
 }

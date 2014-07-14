@@ -68,14 +68,14 @@ var ReserveAsset = {
         "processPersonReply": function (model) {
             var notificationTarget = ReserveAsset.View.notification();
             ReserveAsset.Controller.notifySuccessOrFailure(model, notificationTarget,
-                "You've been successfully added to the list.  You can now reserve above",
+                "You've been successfully added to the list.  You can now reserve the asset",
                 "You've not been added to the list.  Please try again");
             ReserveAsset.Controller.refreshPeopleSelection();
         },
         "processReserveAssetReply": function (model) {
             var notificationTarget = ReserveAsset.View.notification();
             ReserveAsset.Controller.notifySuccessOrFailure(model, notificationTarget,
-                "You've successfully reserved out the asset.  You can take it now",
+                "You've successfully reserved the asset.  You can take it now",
                 "You've not reserved the asset.  Please try again");
         },
         "notifySuccessOrFailure": function (model, notificationTarget, successMessage, failureMessage) {

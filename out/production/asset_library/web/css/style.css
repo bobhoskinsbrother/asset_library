@@ -13,18 +13,58 @@ h1,body,p {
     font-family: open_sansregular, sans-serif;
 }
 
+hr {
+    border: 0 solid #FFFFFF;
+    border-top: 2px dashed #999999;
+}
+
 .table_row {
     clear: both;
     display: table-row;
+    width:100%;
+    background: #FFFFFF;
+    margin-bottom: 2px;
 }
 
 .table_header {
     font-weight: bold;
 }
 
-.table_cell {
+.table_cell, .button_table_cell {
     display: table-cell;
-    width: 150px;
+    padding: 2px;
+}
+
+.table_cell {
+    width: 22%;
+}
+
+.button {
+    width: 100%;
+    color:#FFFFFF;
+    background: #0F418C;
+    border: 1px solid #0F418C;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.button_container {
+    width: 15%;
+}
+
+.form_label {
+    width: 15%;
+}
+
+.button_table_cell {
+    width: 11%;
+    font-size: 10px;
+}
+
+.list_of_assets {
+    width: 85%;
+    margin: auto;
+    padding: 2px;
 }
 
 .add_asset_button, .edit_asset_button {

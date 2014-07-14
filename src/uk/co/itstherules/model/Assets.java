@@ -22,4 +22,8 @@ public final class Assets {
         }
         return asset;
     }
+
+    public boolean contains(String uuid) {
+        return assets.containsKey(uuid);
+    }
 }

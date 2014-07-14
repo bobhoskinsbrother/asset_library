@@ -2,13 +2,15 @@ package uk.co.itstherules.model;
 
 import java.util.UUID;
 
-public final class Person implements Identifiable {
+public class Person implements Identifiable {
 
     private String uuid;
     private final String firstName;
     private final String lastName;
 
-    public Person(String firstName, String lastName) {
+    public Person(String uuid, String firstName, String lastName) {
+        Check.that().isNotNull(uuid).isNotNull(firstName).isNotNull(lastName);
+        this.uuid = uuid;
         this.firstName = firstName;
         this.lastName = lastName;
     }
@@ -26,7 +28,7 @@ public final class Person implements Identifiable {
     }
 
     public boolean uuidIsPresent() {
-        return uuid != null;
+        return uuid != null && !"".equals(uuid);
     }
 
     public void generateUuid() {

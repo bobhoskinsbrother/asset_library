@@ -9,8 +9,8 @@ public class ReserveAsset implements Identifiable {
     private String assetUuid;
 
     public ReserveAsset(String uuid, String personUuid, String assetUuid) {
-        this.uuid = uuid;
         Check.that().isNotNull(personUuid).isNotNull(assetUuid);
+        this.uuid = uuid;
         this.personUuid = personUuid;
         this.assetUuid = assetUuid;
     }
