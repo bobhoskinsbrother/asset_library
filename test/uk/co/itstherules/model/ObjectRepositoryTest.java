@@ -228,6 +228,11 @@ public final class ObjectRepositoryTest {
         }
 
         @Override
+        public void remove(Section section, String uuid) {
+            memory.get(section).remove(uuid);
+        }
+
+        @Override
         public String retrieve(Section section, String uuid) {
             return memory.get(section).get(uuid);
         }

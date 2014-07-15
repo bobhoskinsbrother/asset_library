@@ -9,7 +9,7 @@
     font-style: normal;
 }
 
-h1,body,p {
+h1, body, p {
     font-family: open_sansregular, sans-serif;
 }
 
@@ -21,7 +21,7 @@ hr {
 .table_row {
     clear: both;
     display: table-row;
-    width:100%;
+    width: 100%;
     background: #FFFFFF;
     margin-bottom: 2px;
 }
@@ -41,7 +41,7 @@ hr {
 
 .button {
     width: 100%;
-    color:#FFFFFF;
+    color: #FFFFFF;
     background: #0F418C;
     border: 1px solid #0F418C;
     border-radius: 4px;
@@ -71,22 +71,25 @@ hr {
     font-weight: bold;
 }
 
-.hide{
+.hide {
     display: none;
 }
 
 .asset_info {
     width: 450px;
 }
+
 .success_message, .failure_message {
     width: 100%;
     margin-bottom: 10px;
 }
+
 .success_message {
     background: #AAFFAA;
     border: 1px solid #008800;
     color: #008800;
 }
+
 .failure_message {
     background: #FFAAAA;
     border: 1px solid #880000;

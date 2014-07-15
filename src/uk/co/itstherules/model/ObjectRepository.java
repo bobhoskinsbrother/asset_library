@@ -126,4 +126,10 @@ public final class ObjectRepository {
     public Collection<ReserveAsset> allReserveAssets() {
         return reserveAssets.values();
     }
+
+    public void destroy(ReserveAsset reserveAsset) {
+        String uuid = reserveAsset.getUuid();
+        reserveAssets.remove(uuid);
+        store.remove(ReserveAsset, uuid);
+    }
 }

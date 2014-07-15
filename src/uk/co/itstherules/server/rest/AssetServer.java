@@ -19,6 +19,7 @@ public final class AssetServer {
         final ServerConfiguration configuration = server.getServerConfiguration();
 
         configuration.addHttpHandler(new AssetDispatcher(repository), "/asset");
+        configuration.addHttpHandler(new ReturnAssetDispatcher(repository), "/return_asset");
         configuration.addHttpHandler(new ReserveAssetDispatcher(repository), "/reserve_asset");
         configuration.addHttpHandler(new ReserveAssetsDispatcher(repository), "/reserve_assets");
         configuration.addHttpHandler(new IsAvailableDispatcher(repository), "/is_available");

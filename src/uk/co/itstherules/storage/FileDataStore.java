@@ -1,5 +1,6 @@
 package uk.co.itstherules.storage;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -28,6 +29,17 @@ public final class FileDataStore implements DataStore {
             new File(baseDirectory, sectionName(section)).mkdirs();
         }
 
+    }
+
+    @Override public void remove(Section section, String uuid) {
+        File file = new File(baseDirectory + "/" + sectionName(section), uuid);
+        long twoSecondsFromNow = System.currentTimeMillis()+2000;
+        while(System.currentTimeMillis() < twoSecondsFromNow) {
+            if(file.delete()) {
+                return;
+            }
+        }
+        throw new IllegalStateException("Unable to delete file: "+file.getName());
     }
 
     @Override public void store(Section section, String uuid, String document) {

@@ -49,10 +49,11 @@ var Assets = {
         }
     },
     "Controller": {
-        "init": function (listTarget, addAssetButton) {
+        "init": function (listTarget, addAssetButton, returnAssetButton) {
             Assets.Model.cacheModelsLocally(function () {
                 Assets.Controller.writeToTarget(listTarget);
                 Assets.Controller.attachAddAssetEvent(addAssetButton);
+                Assets.Controller.attachReturnAssetEvent(returnAssetButton);
             });
         },
         "writeToTarget": function (target) {
@@ -83,6 +84,12 @@ var Assets = {
                 window.location = "/asset_information.html?uuid=" + uuid;
             };
         },
+        "attachReturnAssetEvent": function (button) {
+            var buttonView = Assets.View.find(button);
+            buttonView.onclick = function (event) {
+                window.location = "/return_asset.html";
+            };
+        },
         "attachEventToStoreAsset": function (buttonView) {
             buttonView.onclick = function (event) {
                 var uuid = event.target.dataset["uuid"];
@@ -90,7 +97,8 @@ var Assets = {
             };
         },
         "openStoreAsset": function (uuid) {
-            window.location = "/store_asset.html?uuid=" + uuid;
+            var suffix = (uuid) ? "?uuid=" + uuid : "";
+            window.location = "/store_asset.html" + suffix;
         }
     },
     "View": {
