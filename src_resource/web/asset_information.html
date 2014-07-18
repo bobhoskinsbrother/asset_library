@@ -1,26 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
+    <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/asset.js" type="application/javascript"></script>
     <script src="js/qrcode.js" type="application/javascript"></script>
     <script>
-        window.onload = function() {
-            Asset.Controller.init("assetName", "assetQrCode","assetSerialNumber", "assetLocationCheckout");
+        window.onload = function () {
+            Asset.Controller.init("assetName", "assetQrCode", "assetSerialNumber", "assetLocationCheckout");
+            MVC.Controller.registerHomeButton();
         };
     </script>
+    <title>Asset Library - Print Asset</title>
 </head>
 <body>
 
+<div class="home" title="Home" id="homeButton"></div>
+<h1 id="assetName"></h1>
+
 <div id="assetInfo" class="asset_info">
-    <h1 id="assetName"></h1>
-    <div id="assetQrCode"></div>
     <h3 id="assetSerialNumber"></h3>
+
+    <div id="assetQrCode"></div>
     <p id="blurb">
-    Please scan the QR Code with a web capable device to check this out, or go to <span id="assetLocationCheckout"></span>
+        Please scan the QR Code with a web capable device to check this out, or go to <span
+            id="assetLocationCheckout"></span>
     </p>
 </div>
 <div id="noAssetInfo" class="hide">

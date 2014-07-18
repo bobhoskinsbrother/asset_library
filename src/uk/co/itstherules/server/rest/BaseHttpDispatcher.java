@@ -6,7 +6,7 @@ import org.glassfish.grizzly.http.server.Response;
 
 import java.io.Writer;
 
-public abstract class BaseHttpDispatcher extends HttpHandler {
+abstract class BaseHttpDispatcher extends HttpHandler {
 
     @Override public void service(Request request, Response response) throws Exception {
         final DispatchResponse dispatchResponse = dispatch(request);
@@ -17,5 +17,5 @@ public abstract class BaseHttpDispatcher extends HttpHandler {
         writer.close();
     }
 
-    protected abstract DispatchResponse dispatch(Request request) throws Exception;
+    protected abstract DispatchResponse dispatch(Request request);
 }

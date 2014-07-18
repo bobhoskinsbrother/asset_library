@@ -4,10 +4,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class Assets {
-    private Map<String, Asset> assets;
+    private final Map<String, Asset> assets;
 
     public Assets() {
-        this.assets = new ConcurrentHashMap<String, Asset>();
+        this.assets = new ConcurrentHashMap<>();
     }
 
     public Assets add(Asset asset) {

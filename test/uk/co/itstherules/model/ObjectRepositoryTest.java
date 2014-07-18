@@ -239,7 +239,7 @@ public final class ObjectRepositoryTest {
 
         @Override
         public Map<String, String> retrieveAll(Section section) {
-            return new HashMap<String, String>(memory.get(section));
+            return new HashMap<>(memory.get(section));
         }
     }
 }

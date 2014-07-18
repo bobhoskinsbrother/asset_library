@@ -7,11 +7,11 @@ import uk.co.itstherules.model.ObjectRepository;
 import uk.co.itstherules.storage.DataStore;
 import uk.co.itstherules.storage.FileDataStore;
 
-public final class AssetServer {
+final class AssetServer {
 
-    private HttpServer server;
+    private final HttpServer server;
 
-    public AssetServer() {
+    AssetServer() {
         DataStore dataStore = new FileDataStore(System.getProperty("user.home") + "/assets");
         ObjectRepository repository = new ObjectRepository(dataStore);
 
@@ -36,6 +36,7 @@ public final class AssetServer {
             System.in.read();
         } catch (Exception e) {
             System.err.println(e);
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,6 +1,5 @@
 package uk.co.itstherules.storage;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -81,7 +80,7 @@ public final class FileDataStore implements DataStore {
     }
 
     @Override public Map<String, String> retrieveAll(Section section) {
-        Map<String, String> reply = new HashMap<String, String>();
+        Map<String, String> reply = new HashMap<>();
         File root = new File(baseDirectory + "/" + sectionName(section));
         final File[] files = root.listFiles(new FileFilter() {
             @Override public boolean accept(File pathname) {

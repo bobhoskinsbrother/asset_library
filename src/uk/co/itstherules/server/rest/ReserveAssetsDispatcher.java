@@ -1,7 +1,6 @@
 package uk.co.itstherules.server.rest;
 
 import org.glassfish.grizzly.http.server.Request;
-import uk.co.itstherules.model.Assets;
 import uk.co.itstherules.model.ObjectRepository;
 import uk.co.itstherules.model.ReserveAsset;
 import uk.co.itstherules.model.Serializer;

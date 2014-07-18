@@ -26,7 +26,7 @@ var ReserveAsset = {
                 } else {
                     $(reserveAssetForms).style.display = "none";
                     var person = reply.person;
-                    $("personWhoReservedTheAsset").appendChild($t(person.firstName+" "+person.lastName))
+                    $("personWhoReservedTheAsset").appendChild($t(person.firstName+" "+person.lastName));
                     $("assetNotAvailable").style.display = "inline";
                 }
 

@@ -12,10 +12,6 @@ public final class DispatchResponse {
         this.body = body;
     }
 
-    public DispatchResponse(String contentType, String body) {
-        this(200, contentType, body);
-    }
-
     public DispatchResponse(String body) {
         this(200, "application/json", body);
     }

@@ -37,8 +37,7 @@ var Assets = {
             for (var i = 0; i < reserveAssets.length; i++) {
                 var reserveAsset = reserveAssets[i];
                 if (reserveAsset.assetUuid === uuid) {
-                    var person = Assets.Model.person(reserveAsset.personUuid);
-                    return  person;
+                    return  Assets.Model.person(reserveAsset.personUuid);
                 }
             }
             return undefined;

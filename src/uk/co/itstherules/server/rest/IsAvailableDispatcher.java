@@ -11,7 +11,7 @@ public final class IsAvailableDispatcher extends BaseHttpDispatcher {
         this.repository = repository;
     }
 
-    @Override protected DispatchResponse dispatch(Request request) throws Exception {
+    @Override protected DispatchResponse dispatch(Request request) {
         final String assetUuid = new UriParser(request.getRequestURI()).getUuid();
         boolean isAssetAvailable = repository.isAssetAvailable(assetUuid);
         StringBuilder b = new StringBuilder();
