@@ -1,0 +1,64 @@
+<project name="AssetLibrary" default="AssetLibrary" basedir=".">
+
+    <include file="common.xml"/>
+    <property file="build.properties"/>
+    <dirname property="asset_library.basedir" file="${ant.file.AssetLibrary}"/>
+
+    <target name="AssetLibrary" depends="make.asset_library,test.asset_library,save.asset_library"/>
+
+    <target name="make.asset_library" depends="clean.asset_library">
+        <make module="${asset_library.basedir}" jarname="${asset_library.jar}" source="src" targetdir="made">
+            <make.classpath>
+                <classpath>
+                    <fileset refid="release.fileset"/>
+                </classpath>
+            </make.classpath>
+        </make>
+        <make module="${asset_library.basedir}" jarname="${asset_library.test.jar}" source="test" targetdir="made">
+            <make.classpath>
+                <classpath>
+                    <pathelement location="${asset_library.basedir}/${made}/${asset_library.jar}"/>
+                    <fileset refid="release.fileset"/>
+                    <fileset refid="unit.fileset"/>
+                </classpath>
+            </make.classpath>
+        </make>
+    </target>
+
+    <target name="test.asset_library">
+        <test jarname="${asset_library.basedir}/${made}/${asset_library.test.jar}"
+              basedir="${asset_library.basedir}">
+            <test.classpath>
+                <classpath>
+                    <pathelement location="${asset_library.basedir}/${made}/${asset_library.test.jar}"/>
+                    <pathelement location="${asset_library.basedir}/${made}/${asset_library.jar}"/>
+                    <fileset refid="release.fileset"/>
+                    <fileset refid="unit.fileset"/>
+                </classpath>
+            </test.classpath>
+        </test>
+    </target>
+
+    <target name="save.asset_library">
+        <save targetdir="${asset_library.basedir}/${dist}">
+            <save.fileset>
+                <fileset dir="${asset_library.basedir}/${made}" includes="${asset_library.jar}"/>
+            </save.fileset>
+        </save>
+    </target>
+
+    <target name="clean.asset_library">
+        <init.dir dir="${asset_library.basedir}/${made}"/>
+        <init.dir dir="${asset_library.basedir}/${dist}"/>
+    </target>
+
+
+    <fileset id="unit.fileset" dir="${asset_library.basedir}/lib/test/">
+        <include name="*.jar"/>
+    </fileset>
+
+    <fileset id="release.fileset" dir="${asset_library.basedir}/lib/release/">
+        <include name="**/*.jar"/>
+    </fileset>
+
+</project>

@@ -1,0 +1,153 @@
+<project name="CommonBuild" default="empty" xmlns:ac="antlib:net.sf.antcontrib">
+
+    <property file="build.properties" />
+	<target name="empty"/>
+
+	<!--taskdef resource="net/sf/antcontrib/antcontrib.properties"/-->
+
+	<macrodef name="make">
+		<attribute name="module" />
+		<attribute name="source" />
+		<attribute name="targetdir" />
+		<attribute name="jarname" />
+		<element name="make.classpath" />
+		<element name="make.manifest" optional="true" />
+		<sequential>
+			<java.compile module="@{module}" source="@{source}">
+				<classpath.element>
+					<make.classpath />
+				</classpath.element>
+			</java.compile>
+			<copy.resource module="@{module}" source="@{source}"/>
+			<java.jar jarname="@{jarname}" module="@{module}" targetdir="@{targetdir}">
+				<manifest.element><make.manifest /></manifest.element>
+			</java.jar>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="test">
+		<attribute name="jarname" />
+		<attribute name="basedir" />
+		<element name="test.classpath" />
+		<sequential>
+			<init.dir dir="@{basedir}/output"/>
+			<junit fork="true" haltonfailure="true" haltonerror="true" printsummary="true" showoutput="true" dir="@{basedir}">
+				<jvmarg value="-Xmx${maximum.memory}"/>
+				<!--<jvmarg value="-XX:MaxPermSize=${maximum.permanent.memory}" />-->
+				<test.classpath/>
+				<formatter type="xml" />
+				<batchtest todir="@{basedir}/output">
+					<zipfileset src="@{jarname}" includes="**/*Test.class" excludes="functional/**"/>
+				</batchtest>
+			</junit>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="functional.test">
+		<attribute name="jarname" />
+		<attribute name="basedir" />
+		<element name="test.classpath" />
+		<sequential>
+			<init.dir dir="@{basedir}/output"/>
+			<junit fork="true" haltonfailure="true" haltonerror="true" printsummary="true" showoutput="true" dir="@{basedir}">
+				<jvmarg value="-Xmx${maximum.memory}"/>
+				<jvmarg value="-XX:MaxPermSize=${maximum.permanent.memory}" />
+				<test.classpath/>
+				<formatter type="xml" />
+				<batchtest todir="@{basedir}/output">
+					<zipfileset src="@{jarname}" includes="functional/**/*Test.class"/>
+				</batchtest>
+			</junit>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="testsuite">
+		<attribute name="suitename" />
+		<attribute name="basedir" />
+		<element name="test.classpath" />
+		<sequential>
+			<init.dir dir="@{basedir}/output"/>
+			<junit fork="true" haltonfailure="true" printsummary="true" showoutput="true" dir="@{basedir}">
+				<jvmarg value="-Xmx${maximum.memory}"/>
+				<jvmarg value="-XX:MaxPermSize=${maximum.permanent.memory}" />
+				<test.classpath/>
+				<formatter type="xml" />
+			    <test name="@{suitename}" />
+			</junit>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="save">
+		<attribute name="targetdir" />
+		<element name="save.fileset" />
+		<sequential>
+			<init.dir dir="@{targetdir}" />
+			<copy todir="@{targetdir}"><save.fileset /></copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="java.compile">
+		<attribute name="source" />
+		<attribute name="module" />
+		<element name="classpath.element" optional="true"/>
+		<sequential>
+			<init.dir dir="@{module}/classes" />
+			<javac srcdir="@{module}/@{source}" destdir="@{module}/classes" debug="true" includeantruntime="false" encoding="UTF-8">
+                <compilerarg value="-Xlint:unchecked"/>
+				<classpath.element/>
+			</javac>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="java.jar">
+		<attribute name="jarname" />
+		<attribute name="module" />
+		<attribute name="targetdir" />
+		<element name="manifest.element" optional="true" />
+		<sequential>
+			<jar destfile="@{module}/@{targetdir}/@{jarname}">
+				<manifest.element/>
+				<fileset dir="@{module}/classes">
+					<include name="**/*"/>
+				</fileset>
+			</jar>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="copyfiles">
+		<attribute name="fromdir" />
+		<attribute name="todir" />
+		<attribute name="pattern" />
+		<sequential>
+			<copy todir="@{todir}" failonerror="true">
+				<fileset dir="@{fromdir}" >
+					<include name="@{pattern}"/>
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="copy.resource">
+		<attribute name="module" />
+		<attribute name="source" />
+		<sequential>
+			<copy todir="@{module}/classes" failonerror="false">
+				<fileset dir="@{module}/@{source}_resource" >
+					<include name="**/*"/>
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+
+
+	<macrodef name="init.dir">
+		<attribute name="dir" />
+		<sequential>
+			<delete dir="@{dir}" includeemptydirs="true" />
+			<mkdir dir="@{dir}" />
+		</sequential>
+	</macrodef>
+
+
+</project>

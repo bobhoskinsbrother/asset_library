@@ -1,0 +1,27 @@
+<project name="asset_library" default="AssetLibraryMaster" basedir=".">
+
+    <property file="build.properties" />
+    <dirname property="master.basedir" file="${ant.file.asset_library}"/>
+
+	<import file="${master.basedir}/build.xml" />
+	<target name="AssetLibraryMaster" depends="make.asset_library.master,test.asset_library.master, save.asset_library.master" />
+
+	<target name="make.asset_library.master">
+		<antcall target="AssetLibrary.AssetLibrary" />
+	</target>
+
+	<target name="test.asset_library.master">
+	</target>
+
+	<target name="save.asset_library.master">
+		<sequential>
+			<zip destfile="${master.basedir}/${dist}/AssetLibrary.zip">
+                <zipfileset dir="${master.basedir}/sh" prefix="." includes="**/*"/>
+                <zipfileset dir="${master.basedir}/lib/release/" includes="*.jar" prefix="lib"/>
+                <zipfileset dir="${master.basedir}/${dist}/" includes="*.jar" prefix="lib"/>
+			</zip>
+		</sequential>
+	</target>
+
+
+</project>

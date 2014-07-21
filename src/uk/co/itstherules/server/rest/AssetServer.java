@@ -31,11 +31,14 @@ public final class AssetServer {
 
     private void serve() {
         try {
+            System.out.println("Starting the asset server");
             server.start();
-            System.out.println("Press any key to stop the server...");
-            System.in.read();
+            System.out.println("Started the asset server");
+            Thread.currentThread().join();
         } catch (Exception e) {
             System.err.println(e);
+        } finally {
+            server.shutdown();
         }
     }
 

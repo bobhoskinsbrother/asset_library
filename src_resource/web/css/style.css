@@ -9,8 +9,9 @@
     font-style: normal;
 }
 
-h1, body, p {
+h1,h2,h3,h4, body, p {
     font-family: open_sansregular, sans-serif;
+    font-size: 0.95em;
 }
 
 hr {
@@ -76,7 +77,11 @@ hr {
 }
 
 .asset_info {
-    width: 450px;
+    width: 250px;
+}
+
+.blurb {
+    font-size: 0.8em;
 }
 
 .success_message, .failure_message {
