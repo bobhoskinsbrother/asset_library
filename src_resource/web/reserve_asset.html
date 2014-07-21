@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
-    <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/reserve_asset.js" type="application/javascript"></script>
     <script>
         window.onload = function() {
             ReserveAsset.Controller.init("reserveAssetForms", "assetName", "person", "reserveAsset");
-            MVC.Controller.registerHomeButton();
         };
     </script>
     <title>Asset Library - Reserve Asset</title>
@@ -19,7 +18,6 @@
 
 
 <div class="reserve_asset" id="reserveAssetForms">
-    <div class="home" title="Home" id="homeButton"></div>
     <h1>Reserve Asset</h1>
     <div id="notification"></div>
     <div>

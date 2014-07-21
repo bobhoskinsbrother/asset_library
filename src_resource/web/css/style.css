@@ -41,6 +41,7 @@ hr {
 }
 
 .button {
+    min-width: 100px;
     width: 100%;
     height: 35px;
     color: #FFFFFF;
