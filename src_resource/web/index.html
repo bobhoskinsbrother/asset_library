@@ -8,7 +8,7 @@
     <script src="js/assets.js" type="application/javascript"></script>
     <script>
         window.onload = function() {
-            Assets.Controller.init("assetsTarget", "addAssetButton", "returnAssetButton");
+            Assets.Controller.init("assetsTarget", "addAssetButton", "returnAssetButton", "qrCodeButton");
         };
     </script>
     <title>Asset Library - Assets</title>
@@ -20,7 +20,10 @@
         <button class="button" id="addAssetButton">+ Add Asset</button>
     </div>
     <div class="table_cell">
-        <button class="button" id="returnAssetButton"> Return Asset</button>
+        <button class="button" id="returnAssetButton">Return Asset</button>
+    </div>
+    <div class="table_cell">
+        <button class="button" id="qrCodeButton">Generate QRCode</button>
     </div>
 </div>
 <h3>List of Assets</h3>

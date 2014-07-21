@@ -48,11 +48,12 @@ var Assets = {
         }
     },
     "Controller": {
-        "init": function (listTarget, addAssetButton, returnAssetButton) {
+        "init": function (listTarget, addAssetButton, returnAssetButton, qrCodeButton) {
             Assets.Model.cacheModelsLocally(function () {
                 Assets.Controller.writeToTarget(listTarget);
                 Assets.Controller.attachAddAssetEvent(addAssetButton);
                 Assets.Controller.attachReturnAssetEvent(returnAssetButton);
+                Assets.Controller.attachGenerateQRCodeEvent(qrCodeButton);
             });
         },
         "writeToTarget": function (target) {
@@ -70,6 +71,12 @@ var Assets = {
                 var buttonView = buttons[i];
                 eventAttachmentFunction(buttonView);
             }
+        },
+        "attachGenerateQRCodeEvent": function (target) {
+            var buttonView = Assets.View.find(target);
+            buttonView.onclick = function (event) {
+                window.location = "/qrcode_generator.html";
+            };
         },
         "attachEventToReserveAsset": function (buttonView) {
             buttonView.onclick = function (event) {

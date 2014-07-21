@@ -122,6 +122,12 @@ fieldset, .button {
     color: #880000;
 }
 
+@media print {
+    .dont_print {
+        display: none;
+    }
+}
+
 @media screen {
 
     .home {
