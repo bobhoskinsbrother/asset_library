@@ -1,6 +1,6 @@
 package uk.co.itstherules.model;
 
-public interface Identifiable {
+interface Identifiable {
 
     String getUuid();
     boolean uuidIsPresent();

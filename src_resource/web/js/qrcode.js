@@ -1018,7 +1018,7 @@ function showQRCode(text) {
             }
         }
     }
-    var imgElement = document.createElement("img");
+    var imgElement = $e("img", {"alt":"QR Code to scan for accessing checkout"});
     imgElement.src = canvas.toDataURL("image/png");
     return imgElement;
 }

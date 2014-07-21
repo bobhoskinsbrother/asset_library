@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
+    <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/store_asset.js" type="application/javascript"></script>
     <script>
         window.onload = function () {
             StoreAsset.Controller.init("asset");
+            MVC.Controller.registerHomeButton();
         };
     </script>
+
+    <title>Asset Library - Store Asset</title>
 </head>
 <body>
+<div class="home" title="Home" id="homeButton"></div>
 <h1><span id="createOrUpdateFormAction">Add</span> Asset</h1>
 
-<div id="notification"></div>
 <form id="asset" name="asset">
     <fieldset id="assetFieldset">
+        <div id="notification"></div>
         <input type="hidden" id="uuid" name="uuid">
 
         <div class="form_label">
@@ -25,14 +30,17 @@
 
         </div>
         <input type="text" required="required" id="name" name="name" placeholder="Name">
+
         <div class="form_label">
             <label for="serialNumber">Serial Number</label>
         </div>
         <input type="text" required="required" id="serialNumber" name="serialNumber" placeholder="Serial Number">
+
         <div class="form_label">
             <label for="notes">Notes</label>
         </div>
         <textarea id="notes" name="notes" placeholder="Notes"></textarea>
+
         <div class="button_container">
             <button id="createOrUpdateFormButton" type="submit" class="button">Add</button>
         </div>

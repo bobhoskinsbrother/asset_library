@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
+    <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/return_asset.js" type="application/javascript"></script>
     <script>
         window.onload = function () {
             ReturnAsset.Controller.init("return_asset");
+            MVC.Controller.registerHomeButton();
         };
     </script>
+    <title>Asset Library - Return Asset</title>
 </head>
 <body>
 
 
 <div class="return_asset" id="returnAssetForms">
+    <div class="home" title="Home" id="homeButton"></div>
     <h1>Return Asset</h1>
 
-    <div id="notification"></div>
     <div>
         <form id="return_asset" name="return_asset">
             <fieldset name="returnAssetFields">
+               <div id="notification"></div>
                 <span id="selectReturnAsset"></span>
 
                 <div class="button_container">

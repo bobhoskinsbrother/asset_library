@@ -5,8 +5,8 @@ import java.util.UUID;
 public class ReserveAsset implements Identifiable {
 
     private String uuid;
-    private String personUuid;
-    private String assetUuid;
+    private final String personUuid;
+    private final String assetUuid;
 
     public ReserveAsset(String uuid, String personUuid, String assetUuid) {
         Check.that().isNotNull(personUuid).isNotNull(assetUuid);
