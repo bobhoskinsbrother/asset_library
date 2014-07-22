@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <script src="js/$.js" type="application/javascript"></script>
+    <script src="js/x.js" type="application/javascript"></script>
+    <script src="js/url.js" type="application/javascript"></script>
+    <script src="js/asset_lib.js" type="application/javascript"></script>
+    <script src="js/qrcode_generator.js" type="application/javascript"></script>
+    <script src="js/qrcode.js" type="application/javascript"></script>
+    <script>
+        window.onload = function () {
+            QRCodeGenerator.Controller.init("textToEncode", "targetQrCode", "printText");
+            MVC.Controller.registerHomeButton();
+        };
+    </script>
+    <title>Asset Library - Print QR Code</title>
+</head>
+<body>
+
+<div class="home" title="Home" id="homeButton"></div>
+<form>
+    <fieldset>
+        <div class="asset_info">
+            <input type="text" name="textToEncode" id="textToEncode" class="dont_print" placeholder="Type text to generate a QRCode"/>
+
+            <div id="targetQrCode"></div>
+            <h3 id="printText"></h3>
+        </div>
+    </fieldset>
+</form>
+
+</body>
+</html>

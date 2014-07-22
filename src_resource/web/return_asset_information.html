@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <script src="js/$.js" type="application/javascript"></script>
+    <script src="js/x.js" type="application/javascript"></script>
+    <script src="js/url.js" type="application/javascript"></script>
+    <script src="js/asset_lib.js" type="application/javascript"></script>
+    <script src="js/qrcode.js" type="application/javascript"></script>
+    <script>
+
+        "use strict";
+
+        window.onload = function () {
+            ReturnAssetInformation.Controller.init("assetQrCode");
+            MVC.Controller.registerHomeButton();
+        };
+
+        var ReturnAssetInformation = {
+            "Controller": {
+                "init": function (qrCodeTarget) {
+                    ReturnAssetInformation.View.assetView(qrCodeTarget);
+                }
+            },
+            "View": {
+                "assetView": function (qrCodeTarget) {
+                    var host = location.host;
+                    var url = "http://"+host+"/return_asset.html";
+                    ReturnAssetInformation.View.find(qrCodeTarget).appendChild(showQRCode(url));
+                },
+                "find": function (target) {
+                    return $(target);
+                }
+            }
+        };
+    </script>
+    <title>Asset Library - Return Asset</title>
+</head>
+<body>
+
+<div class="home" title="Home" id="homeButton"></div>
+<h1 id="assetName"></h1>
+
+<div id="assetInfo" class="asset_info">
+    <div id="assetQrCode"></div>
+    <p id="blurb">
+        Return the device by scanning the above QR Code
+    </p>
+</div>
+</body>
+</html>
