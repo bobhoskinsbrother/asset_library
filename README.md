@@ -22,3 +22,7 @@ How To Run
     nohup ./run_asset_library.sh &
 
 
+Navigate to:
+
+    http://localhost:9800/index.html
+    
