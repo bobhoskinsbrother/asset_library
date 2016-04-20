@@ -18,9 +18,7 @@ How To Run
     ant -f master.xml
     cd ./dist
     unzip AssetLibrary.zip
-    chmod a+x run_asset_library.sh
-    nohup ./run_asset_library.sh &
-
+    nohup ./run_asset_library.sh > webserver.log 2>&amp;1&amp;
 
 Navigate to:
 
