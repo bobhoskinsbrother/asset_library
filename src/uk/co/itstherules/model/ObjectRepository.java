@@ -2,12 +2,8 @@ package uk.co.itstherules.model;
 
 import uk.co.itstherules.storage.DataStore;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static uk.co.itstherules.storage.DataStore.Section.*;
 
 public final class ObjectRepository {
 
@@ -27,32 +23,23 @@ public final class ObjectRepository {
     }
 
     private void addReserveAssetsFrom(DataStore store) {
-        final Map<String, String> documents = store.retrieveAll(ReserveAsset);
-        final Set<String> keys = documents.keySet();
-        for (String key : keys) {
-            String document = documents.get(key);
-            final uk.co.itstherules.model.ReserveAsset reserveAsset = Deserializer.deserializeReserveAsset(document);
+        final List<ReserveAsset> documents = store.retrieveAllReservedAssets();
+        for (ReserveAsset reserveAsset : documents) {
             reserveAssets.put(reserveAsset.getUuid(), reserveAsset);
         }
     }
 
     private void addAssetsFrom(DataStore store) {
-        final Map<String, String> documents = store.retrieveAll(Asset);
-        final Set<String> keys = documents.keySet();
-        for (String key : keys) {
-            String document = documents.get(key);
-            final Asset deserialized = Deserializer.deserializeAsset(document);
-            assets.add(deserialized);
+        final List<Asset> documents = store.retrieveAllAssets();
+        for (Asset asset : documents) {
+            assets.add(asset);
         }
     }
 
     private void addPeopleFrom(DataStore store) {
-        final Map<String, String> documents = store.retrieveAll(Person);
-        final Set<String> keys = documents.keySet();
-        for (String key : keys) {
-            String document = documents.get(key);
-            final Person deserialized = Deserializer.deserializePerson(document);
-            people.add(deserialized);
+        final List<Person> documents = store.retrieveAllPeople();
+        for (Person person : documents) {
+            people.add(person);
         }
     }
 
@@ -82,21 +69,21 @@ public final class ObjectRepository {
     public void add(Asset asset) {
         final String uuid = asset.getUuid();
         Check.that().isNotNull(uuid);
-        store.store(Asset, uuid, Serializer.serialize(asset));
+        store.store(asset);
         assets.add(asset);
     }
 
     public void add(Person person) {
         final String uuid = person.getUuid();
         Check.that().isNotNull(uuid);
-        store.store(Person, uuid, Serializer.serialize(person));
+        store.store(person);
         people.add(person);
     }
 
     public void add(ReserveAsset reserveAsset) {
         final String uuid = reserveAsset.getUuid();
         Check.that().isNotNull(uuid);
-        store.store(ReserveAsset, uuid, Serializer.serialize(reserveAsset));
+        store.store(reserveAsset);
         reserveAssets.put(uuid, reserveAsset);
     }
 
@@ -127,9 +114,25 @@ public final class ObjectRepository {
         return reserveAssets.values();
     }
 
-    public void destroy(ReserveAsset reserveAsset) {
-        String uuid = reserveAsset.getUuid();
+    public void destroyReserveAsset(String uuid) {
         reserveAssets.remove(uuid);
-        store.remove(ReserveAsset, uuid);
+        store.removeReserveAsset(uuid);
+    }
+
+    public void destroyAsset(String uuid) {
+        assets.remove(uuid);
+        store.removeAsset(uuid);
+    }
+
+    public void destroyReserveAssetByAssetId(String assetUuid) {
+        List<String> toDelete = new ArrayList<>();
+        for (ReserveAsset reserveAsset : reserveAssets.values()) {
+            if(assetUuid.equals(reserveAsset.getAssetUuid())){
+                toDelete.add(reserveAsset.getUuid());
+            }
+        }
+        for (String uuid : toDelete) {
+            destroyReserveAsset(uuid);
+        }
     }
 }

@@ -90,6 +90,17 @@ var Assets = {
                 window.location = "/asset_information.html?uuid=" + uuid;
             };
         },
+        "assetHasBeenDeleted": function(data){
+            var assetUuid = data.deleted;
+            var $rowToDelete = $("row_" + assetUuid);
+            $rowToDelete.parentNode.removeChild($rowToDelete);
+        },
+        "attachEventToDeleteAsset": function (buttonView) {
+            buttonView.onclick = function (event) {
+                var uuid = event.target.dataset["uuid"];
+                Assets.Controller.deleteAsset(uuid, Assets.Controller.assetHasBeenDeleted);
+            };
+        },
         "attachReturnAssetEvent": function (button) {
             var buttonView = Assets.View.find(button);
             buttonView.onclick = function (event) {
@@ -105,13 +116,20 @@ var Assets = {
         "openStoreAsset": function (uuid) {
             var suffix = (uuid) ? "?uuid=" + uuid : "";
             window.location = "/store_asset.html" + suffix;
+        },
+        "deleteAsset": function(uuid, deletedCallback) {
+            if(confirm("Really delete?")) {
+                x().post("/remove_asset/" + uuid, function (reply) {
+                    deletedCallback(reply);
+                });
+            }
         }
     },
     "View": {
         "assetsView": function (model) {
             var assetsView = $e("div");
             var assets = model;
-            assetsView.appendChild(Assets.View.tableRow({ "class": "table_row table_header" }, $t("Name"), $t("Notes"), $t("Serial Number"), $t(""), $t(""), $t("")));
+            assetsView.appendChild(Assets.View.tableRow({ "class": "table_row table_header" }, $t("Name"), $t("Notes"), $t("Serial Number"), $t(""), $t(""), $t(""), $t("")));
             for (var key in  assets) {
                 if (assets.hasOwnProperty(key)) {
                     var asset = assets[key];
@@ -132,19 +150,24 @@ var Assets = {
                 reserveAssetView = $e("button", {"data-uuid": uuid, "name": "reserve_asset_button", "class": "button"}, $t("Reserve"));
                 Assets.Controller.attachEventToReserveAsset(reserveAssetView);
             }
+
+            var deleteAssetDetailsButton = $e("button", {"data-uuid": uuid, "name": "delete_asset_details_button", "class": "button"}, $t("Delete"));
+            Assets.Controller.attachEventToDeleteAsset(deleteAssetDetailsButton);
+
             var printAssetDetailsButton = $e("button", {"data-uuid": uuid, "name": "print_asset_details_button", "class": "button"}, $t("Print"));
             Assets.Controller.attachEventToPrintAsset(printAssetDetailsButton);
 
             return Assets.View.tableRow({ "id": "row_" + uuid, "class": "table_row" },
-                $t(asset.name), $t(asset.notes), $t(asset.serialNumber), editAssetButton, reserveAssetView, printAssetDetailsButton);
+                $t(asset.name), $t(asset.notes), $t(asset.serialNumber), editAssetButton, reserveAssetView, deleteAssetDetailsButton, printAssetDetailsButton);
         },
-        "tableRow": function (attributes, name, notes, serialNumber, editAssetButton, reserveAssetView, printAssetDetailsButton) {
+        "tableRow": function (attributes, name, notes, serialNumber, editAssetButton, reserveAssetView,deleteAssetDetailsButton, printAssetDetailsButton) {
             var row = $e("div", attributes);
             row.appendChild($e("span", { "class": "table_cell" }, name));
             row.appendChild($e("span", { "class": "table_cell" }, notes));
             row.appendChild($e("span", { "class": "table_cell" }, serialNumber));
             row.appendChild($e("span", { "class": "button_table_cell" }, editAssetButton));
             row.appendChild($e("span", { "class": "button_table_cell" }, reserveAssetView));
+            row.appendChild($e("span", { "class": "button_table_cell" }, deleteAssetDetailsButton));
             row.appendChild($e("span", { "class": "button_table_cell" }, printAssetDetailsButton));
             return row;
         },

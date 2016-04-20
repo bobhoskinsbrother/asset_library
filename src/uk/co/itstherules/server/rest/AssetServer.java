@@ -5,14 +5,14 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.ServerConfiguration;
 import uk.co.itstherules.model.ObjectRepository;
 import uk.co.itstherules.storage.DataStore;
-import uk.co.itstherules.storage.FileDataStore;
+import uk.co.itstherules.storage.H2DatabaseStore;
 
 final class AssetServer {
 
     private final HttpServer server;
 
     AssetServer() {
-        DataStore dataStore = new FileDataStore(System.getProperty("user.home") + "/assets");
+        DataStore dataStore = new H2DatabaseStore(System.getProperty("user.home") + "/assets");
         ObjectRepository repository = new ObjectRepository(dataStore);
 
         server = HttpServer.createSimpleServer("/web/", 9800);
@@ -20,6 +20,7 @@ final class AssetServer {
 
         configuration.addHttpHandler(new AssetDispatcher(repository), "/asset");
         configuration.addHttpHandler(new ReturnAssetDispatcher(repository), "/return_asset");
+        configuration.addHttpHandler(new RemoveAssetDispatcher(repository), "/remove_asset");
         configuration.addHttpHandler(new ReserveAssetDispatcher(repository), "/reserve_asset");
         configuration.addHttpHandler(new ReserveAssetsDispatcher(repository), "/reserve_assets");
         configuration.addHttpHandler(new IsAvailableDispatcher(repository), "/is_available");

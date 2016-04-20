@@ -2,47 +2,80 @@ package uk.co.itstherules.model;
 
 import org.junit.Test;
 import uk.co.itstherules.storage.DataStore;
-import uk.co.itstherules.storage.FileDataStore;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
-import static uk.co.itstherules.FileTestHelper.deleteContentsOf;
-import static uk.co.itstherules.storage.DataStore.Section.Asset;
-import static uk.co.itstherules.storage.DataStore.Section.Person;
-import static uk.co.itstherules.storage.DataStore.Section.ReserveAsset;
 
 public final class ObjectRepositoryTest {
 
-    private String path;
+    @Test public void canDestroyAsset() {
+        DataStore store = new MemDataStore();
+        ObjectRepository unit = new ObjectRepository(store);
+        final Asset asset = new Asset("uuid", "name", "serial", "notes");
+        unit.add(asset);
+        assertThat(store.retrieveAsset("uuid").getSerialNumber(), is("serial"));
 
-    public void setup() {
-        path = System.getProperty("java.io.tmpdir") + "/" + "test_dir";
-        final File rootDir = new File(path);
-        deleteContentsOf(rootDir);
+        unit.destroyAsset("uuid");
+        assertThat(store.retrieveAsset("uuid"), nullValue());
+    }
+
+    @Test public void canDestroyReserveAsset() {
+        DataStore store = new MemDataStore();
+        ObjectRepository unit = new ObjectRepository(store);
+        final ReserveAsset asset = new ReserveAsset("uuid", "personUuid","assetUuid");
+        unit.add(asset);
+        assertThat(store.retrieveReserveAsset("uuid").getPersonUuid(), is("personUuid"));
+
+        unit.destroyReserveAsset("uuid");
+        assertThat(store.retrieveReserveAsset("uuid"), nullValue());
+    }
+
+    @Test public void cannotDestroyReserveAssetWithBadId() {
+        DataStore store = new MemDataStore();
+        ObjectRepository unit = new ObjectRepository(store);
+        final ReserveAsset asset = new ReserveAsset("uuid", "personUuid","assetUuid");
+        unit.add(asset);
+        assertThat(store.retrieveReserveAsset("uuid").getPersonUuid(), is("personUuid"));
+
+        unit.destroyReserveAsset("fred");
+        assertThat(store.retrieveReserveAsset("uuid").getPersonUuid(), is("personUuid"));
+    }
+
+    @Test public void canDestroyReserveAssetByAssetUuid() {
+        DataStore store = new MemDataStore();
+        ObjectRepository unit = new ObjectRepository(store);
+        final ReserveAsset asset = new ReserveAsset("uuid", "personUuid","assetUuid");
+        unit.add(asset);
+        assertThat(store.retrieveReserveAsset("uuid").getPersonUuid(), is("personUuid"));
+
+        unit.destroyReserveAssetByAssetId("assetUuid");
+        assertThat(store.retrieveReserveAsset("uuid"), nullValue());
+    }
+    @Test public void cannotDestroyReserveAssetUsingBadAssetUuid() {
+
+        DataStore store = new MemDataStore();
+        ObjectRepository unit = new ObjectRepository(store);
+        final ReserveAsset asset = new ReserveAsset("uuid", "personUuid","assetUuid");
+        unit.add(asset);
+        assertThat(store.retrieveReserveAsset("uuid").getPersonUuid(), is("personUuid"));
+
+        unit.destroyReserveAssetByAssetId("fred");
+        assertThat(store.retrieveReserveAsset("uuid").getAssetUuid(), is("assetUuid"));
     }
 
     @Test
     public void canWriteAsset() {
-        final MemDataStore store = new MemDataStore();
+        DataStore store = new MemDataStore();
         ObjectRepository unit = new ObjectRepository(store);
         final Asset asset = new Asset("uuid", "name", "serial", "notes");
         unit.add(asset);
-        assertThat(store.retrieve(Asset, "uuid"), is("{\"uuid\":\"uuid\",\"name\":\"name\",\"serialNumber\":\"serial\",\"notes\":\"notes\"}"));
-    }
-
-    @Test
-    public void canWriteAssetToFile() {
-        setup();
-        final DataStore store = new FileDataStore(path);
-        ObjectRepository unit = new ObjectRepository(store);
-        final Asset asset = new Asset("uuid", "name", "serial", "notes");
-        unit.add(asset);
-        assertThat(store.retrieve(Asset, "uuid"), is("{\"uuid\":\"uuid\",\"name\":\"name\",\"serialNumber\":\"serial\",\"notes\":\"notes\"}"));
-        assertThat(new File(path).exists(), is(true));
+        assertThat(store.retrieveAsset("uuid").getSerialNumber(), is("serial"));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -61,10 +94,10 @@ public final class ObjectRepositoryTest {
     @Test
     public void picksUpExistingRepoAndAddsItOnBootup() throws Exception {
         final DataStore store = new MemDataStore();
-        store.store(Asset, "some_uuid", "{\"uuid\":\"some_uuid\",\"name\":\"a_name\",\"serialNumber\":\"a_serial\",\"notes\":\"a_notes\"}");
-        store.store(Asset, "some_other_uuid", "{\"uuid\":\"some_other_uuid\",\"name\":\"b_name\",\"serialNumber\":\"b_serial\",\"notes\":\"b_notes\"}");
-        store.store(Person, "yet_another_uuid", "{\"uuid\":\"yet_another_uuid\",\"firstName\":\"Fred\",\"lastName\":\"Fredoferson\"}");
-        store.store(ReserveAsset, "yet_again_another_uuid", "{\"uuid\":\"yet_again_another_uuid\",\"personUuid\":\"yet_another_uuid\",\"assetUuid\":\"some_other_uuid\"}");
+        store.store(new Asset("some_uuid", "a_name","a_serial","a_notes"));
+        store.store(new Asset("some_other_uuid", "b_name","b_serial","b_notes"));
+        store.store(new Person("yet_another_uuid","Fred","Fredoferson"));
+        store.store(new ReserveAsset("yet_again_another_uuid", "yet_another_uuid","some_other_uuid"));
 
         ObjectRepository unit = new ObjectRepository(store);
         final Asset assetOne = unit.getAsset("some_uuid");
@@ -213,33 +246,69 @@ public final class ObjectRepositoryTest {
 
     private class MemDataStore implements DataStore {
 
-        private final Map<Section, Map<String, String>> memory;
+        private final Map<String, Asset> assets;
+        private final Map<String, Person> people;
+        private final Map<String, ReserveAsset> reservedAssets;
 
         private MemDataStore() {
-            memory = new HashMap<>();
-            memory.put(Asset, new HashMap<String, String>());
-            memory.put(ReserveAsset, new HashMap<String, String>());
-            memory.put(Person, new HashMap<String, String>());
+            assets = new HashMap<>();
+            people = new HashMap<>();
+            reservedAssets = new HashMap<>();
+        }
+
+        @Override  public void store(Asset asset) {
+            assets.put(asset.getUuid(), asset);
+        }
+        @Override  public void store(Person person) {
+            people.put(person.getUuid(), person);
+        }
+        @Override  public void store(ReserveAsset reserveAsset) {
+            reservedAssets.put(reserveAsset.getUuid(), reserveAsset);
         }
 
         @Override
-        public void store(Section section, String uuid, String document) {
-            memory.get(section).put(uuid, document);
+        public void removeAsset(String area) {
+            assets.remove(area);
         }
 
         @Override
-        public void remove(Section section, String uuid) {
-            memory.get(section).remove(uuid);
+        public void removePerson(String uuid) {
+            people.remove(uuid);
         }
 
         @Override
-        public String retrieve(Section section, String uuid) {
-            return memory.get(section).get(uuid);
+        public void removeReserveAsset(String uuid) {
+            reservedAssets.remove(uuid);
         }
 
         @Override
-        public Map<String, String> retrieveAll(Section section) {
-            return new HashMap<>(memory.get(section));
+        public Asset retrieveAsset(String uuid) {
+            return assets.get(uuid);
+        }
+
+        @Override
+        public Person retrievePerson(String uuid) {
+            return people.get(uuid);
+        }
+
+        @Override
+        public ReserveAsset retrieveReserveAsset(String uuid) {
+            return reservedAssets.get(uuid);
+        }
+
+        @Override
+        public List<Person> retrieveAllPeople() {
+            return new ArrayList<>(people.values());
+        }
+
+        @Override
+        public List<Asset> retrieveAllAssets() {
+            return new ArrayList<>(assets.values());
+        }
+
+        @Override
+        public List<ReserveAsset> retrieveAllReservedAssets() {
+            return new ArrayList<>(reservedAssets.values());
         }
     }
 }

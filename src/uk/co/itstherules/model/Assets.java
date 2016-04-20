@@ -26,4 +26,8 @@ public final class Assets {
     public boolean contains(String uuid) {
         return assets.containsKey(uuid);
     }
+
+    public void remove(String uuid) {
+        assets.remove(uuid);
+    }
 }
