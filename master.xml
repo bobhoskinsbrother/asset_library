@@ -16,7 +16,7 @@
 	<target name="save.asset_library.master">
 		<sequential>
 			<zip destfile="${master.basedir}/${dist}/AssetLibrary.zip">
-                <zipfileset dir="${master.basedir}/sh" prefix="." includes="**/*"/>
+                <zipfileset dir="${master.basedir}/sh" prefix="." includes="**/*" filemode="755"/>
                 <zipfileset dir="${master.basedir}/lib/release/" includes="*.jar" prefix="lib"/>
                 <zipfileset dir="${master.basedir}/${dist}/" includes="*.jar" prefix="lib"/>
 			</zip>
