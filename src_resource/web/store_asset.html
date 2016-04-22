@@ -1,53 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asset Library - Store Asset</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
     <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/store_asset.js" type="application/javascript"></script>
+    <script src="js/jquery-1.11.3.js" type="application/javascript"></script>
     <script>
+        jQuery.noConflict();
         window.onload = function () {
             StoreAsset.Controller.init("asset");
             MVC.Controller.registerHomeButton();
         };
     </script>
 
-    <title>Asset Library - Store Asset</title>
 </head>
 <body>
-<div class="home" title="Home" id="homeButton"></div>
-<h1><span id="createOrUpdateFormAction">Add</span> Asset</h1>
+<div class="container">
 
-<form id="asset" name="asset">
-    <fieldset id="assetFieldset">
-        <div id="notification"></div>
-        <input type="hidden" id="uuid" name="uuid">
+    <button class="btn btn-primary home" title="Home" id="homeButton"></button>
+    <div class="page-header">
+    <h1><span id="createOrUpdateFormAction">Add</span> Asset</h1>
+    </div>
 
-        <div class="form_label">
-            <label for="name">Name</label>
+    <form id="asset" name="asset">
+        <fieldset id="assetFieldset" >
+            <div id="notification"></div>
+            <input type="hidden" id="uuid" name="uuid">
 
-        </div>
-        <input type="text" required="required" id="name" name="name" placeholder="Name">
+            <div class="form-group">
+                <label for="name">Name</label>
+            <input type="text" required="required" id="name" name="name" placeholder="Name" class="form-control">
+            </div>
 
-        <div class="form_label">
-            <label for="serialNumber">Serial Number</label>
-        </div>
-        <input type="text" required="required" id="serialNumber" name="serialNumber" placeholder="Serial Number">
+            <div class="form-group">
+                <label for="serialNumber">Serial Number</label>
+                <input type="text" required="required" id="serialNumber" name="serialNumber" placeholder="Serial Number" class="form-control">
+            </div>
 
-        <div class="form_label">
-            <label for="notes">Notes</label>
-        </div>
-        <textarea id="notes" name="notes" placeholder="Notes"></textarea>
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                <textarea id="notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+            </div>
 
-        <div class="button_container">
-            <button id="createOrUpdateFormButton" type="submit" class="button">Add</button>
-        </div>
+            <button id="createOrUpdateFormButton" type="submit" class="btn btn-primary">Add</button>
 
-    </fieldset>
+        </fieldset>
 
-</form>
+    </form>
+</div>
 </body>
 </html>

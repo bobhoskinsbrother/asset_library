@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asset Library - Return Asset</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
+    <script src="js/jquery-1.11.3.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
+
     <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/qrcode.js" type="application/javascript"></script>
     <script>
 
         "use strict";
+
+        jQuery.noConflict();
 
         window.onload = function () {
             ReturnAssetInformation.Controller.init("assetQrCode");
@@ -26,7 +40,7 @@
             "View": {
                 "assetView": function (qrCodeTarget) {
                     var host = location.host;
-                    var url = "http://"+host+"/return_asset.html";
+                    var url = "http://" + host + "/return_asset.html";
                     ReturnAssetInformation.View.find(qrCodeTarget).appendChild(showQRCode(url));
                 },
                 "find": function (target) {
@@ -35,18 +49,21 @@
             }
         };
     </script>
-    <title>Asset Library - Return Asset</title>
 </head>
 <body>
 
-<div class="home" title="Home" id="homeButton"></div>
-<h1 id="assetName"></h1>
+<div class="container">
+    <button class="btn btn-primary home" title="Home" id="homeButton"></button>
+    <div class="page-header">
+        <h1 id="assetName"></h1>
+    </div>
 
-<div id="assetInfo" class="asset_info">
-    <div id="assetQrCode"></div>
-    <p id="blurb">
-        Return the device by scanning the above QR Code
-    </p>
+    <div id="assetInfo" class="asset_info">
+        <div id="assetQrCode"></div>
+        <p id="blurb">
+            Return the device by scanning the above QR Code
+        </p>
+    </div>
 </div>
 </body>
 </html>

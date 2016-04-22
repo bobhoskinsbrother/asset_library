@@ -86,10 +86,10 @@ var ReserveAsset = {
             }
         },
         "addFailureNotification": function (target, message) {
-            ReserveAsset.Controller._addNotification(target, "failure_message", message);
+            ReserveAsset.Controller._addNotification(target, "alert alert-danger", message);
         },
         "addSuccessNotification": function (target, message) {
-            ReserveAsset.Controller._addNotification(target, "success_message", message);
+            ReserveAsset.Controller._addNotification(target, "alert alert-success", message);
         },
         "_addNotification": function (target, className, message) {
             ReserveAsset.Controller.removeChildren(target);

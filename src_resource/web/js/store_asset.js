@@ -15,29 +15,29 @@ var StoreAsset = {
             StoreAsset.Controller.attachStoreAssetFormEvent(assetForm);
         },
 
-        "addEditFeaturesUuidIfExists": function() {
-            if(StoreAsset.Controller.isUuidPassed()) {
+        "addEditFeaturesUuidIfExists": function () {
+            if (StoreAsset.Controller.isUuidPassed()) {
                 var uuidValue = Url.parameter("uuid");
                 StoreAsset.Controller.changeTextToEdit();
                 StoreAsset.Controller.addExistingEditDetails(uuidValue);
             }
         },
 
-        "addExistingEditDetails": function(uuid) {
-            StoreAsset.Model.asset(uuid, function(model){
+        "addExistingEditDetails": function (uuid) {
+            StoreAsset.Model.asset(uuid, function (model) {
                 StoreAsset.Controller.populateAssetFormFields(model);
             });
         },
 
-        "populateAssetFormFields": function(model) {
-            for(var key in model) {
+        "populateAssetFormFields": function (model) {
+            for (var key in model) {
                 var view = StoreAsset.View.find(key);
                 view.value = model[key];
             }
         },
 
-        "changeTextToEdit": function() {
-            if(StoreAsset.Controller.isUuidPassed()) {
+        "changeTextToEdit": function () {
+            if (StoreAsset.Controller.isUuidPassed()) {
                 var createOrUpdateFormActionView = StoreAsset.View.find("createOrUpdateFormAction");
                 var createOrUpdateFormActionButton = StoreAsset.View.find("createOrUpdateFormButton");
                 StoreAsset.Controller.removeChildren(createOrUpdateFormActionButton);
@@ -47,7 +47,7 @@ var StoreAsset = {
             }
         },
 
-        "isUuidPassed": function() {
+        "isUuidPassed": function () {
             var uuid = Url.parameter("uuid");
             return (uuid && "" != uuid);
         },
@@ -89,10 +89,10 @@ var StoreAsset = {
             }
         },
         "addFailureNotification": function (target, message) {
-            StoreAsset.Controller._addNotification(target, "failure_message", message);
+            StoreAsset.Controller._addNotification(target, "alert alert-danger", message);
         },
         "addSuccessNotification": function (target, message) {
-            StoreAsset.Controller._addNotification(target, "success_message", message);
+            StoreAsset.Controller._addNotification(target, "alert alert-success", message);
         },
         "_addNotification": function (target, className, message) {
             StoreAsset.Controller.removeChildren(target);

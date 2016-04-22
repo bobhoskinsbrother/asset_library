@@ -1,36 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asset Library - Print Asset</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
+    <script src="js/jquery-1.11.3.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
     <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/asset.js" type="application/javascript"></script>
     <script src="js/qrcode.js" type="application/javascript"></script>
     <script>
+        jQuery.noConflict();
         window.onload = function () {
             Asset.Controller.init("assetName", "assetQrCode", "assetSerialNumber");
             MVC.Controller.registerHomeButton();
         };
     </script>
-    <title>Asset Library - Print Asset</title>
 </head>
 <body>
-<h1 class="dont_print">Print out this page and stick it to your asset</h1>
-<div class="home" title="Home" id="homeButton"></div>
-<h1 id="assetName"></h1>
+<div class="container">
+    <button class="btn btn-primary home" title="Home" id="homeButton"></button>
 
-<div id="assetInfo" class="asset_info">
-    <h3 id="assetSerialNumber"></h3>
-    <div id="assetQrCode"></div>
-    <p id="blurb">
-        Please scan the QR Code with RedLaser on this device to check it out
-    </p>
-</div>
-<div id="noAssetInfo" class="hide">
-    There has been no device found for that uuid.
+    <div class="page-header dont_print">
+        <h2>Print out this page and stick it to your asset</h2>
+    </div>
+
+    <h2 id="assetName"></h2>
+
+    <div id="assetInfo" class="asset_info">
+        <h4 id="assetSerialNumber"></h4>
+
+        <div id="assetQrCode"></div>
+        <p id="blurb">
+            Please scan with your device to check it out
+        </p>
+    </div>
+    <div id="noAssetInfo" class="hide">
+        There has been no device found for that uuid.
+    </div>
 </div>
 </body>
 </html>

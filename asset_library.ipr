@@ -28,6 +28,9 @@
     <entry_points version="2.0" />
   </component>
   <component name="IdProvider" IDEtalkID="21595D91F5124790828AF13E6124C8AF" />
+  <component name="JavaScriptLibraryMappings">
+    <file url="PROJECT" libraries="{jquery}" />
+  </component>
   <component name="Palette2">
     <group name="Swing">
       <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">

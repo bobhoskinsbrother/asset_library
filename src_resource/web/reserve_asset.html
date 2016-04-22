@@ -1,57 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asset Library - Reserve Asset</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
+    <script src="js/jquery-1.11.3.js" type="application/javascript"></script>
     <script src="js/url.js" type="application/javascript"></script>
+    <script src="js/asset_lib.js" type="application/javascript"></script>
     <script src="js/reserve_asset.js" type="application/javascript"></script>
     <script>
-        window.onload = function() {
+        jQuery.noConflict();
+        window.onload = function () {
             ReserveAsset.Controller.init("reserveAssetForms", "assetName", "person", "reserveAsset");
+            MVC.Controller.registerHomeButton();
         };
     </script>
-    <title>Asset Library - Reserve Asset</title>
 </head>
 <body>
 
+<div class="container">
+    <button class="btn btn-primary home" title="Home" id="homeButton"></button>
 
-<div class="reserve_asset" id="reserveAssetForms">
-    <h1>Reserve Asset</h1>
-    <div id="notification"></div>
-    <div>
-        <form id="reserveAsset" name="reserveAsset">
-            <fieldset name="reserveAssetFields">
-                <h2 id="assetName"></h2>
-                <input type="hidden" name="assetUuid" id="assetUuid">
-                <label for="personUuid">Reserve to: </label><select id="personUuid" name="personUuid"></select>
-                <div class="button_container">
-                    <button type="submit" class="button">Reserve</button>
-                </div>
-            </fieldset>
-        </form>
+    <div class="reserve_asset" id="reserveAssetForms">
+        <div class="page-header">
+            <h1>Reserve Asset</h1>
+        </div>
+
+        <div id="notification"></div>
+        <div>
+            <form id="reserveAsset" name="reserveAsset">
+                <fieldset name="reserveAssetFields">
+                    <h3 id="assetName"></h3>
+                    <input type="hidden" name="assetUuid" id="assetUuid" class="form-control">
+
+                    <div class=form-group">
+                        <label for="personUuid">Reserve to: </label><select id="personUuid" name="personUuid"
+                                                                            class="form-control"></select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Reserve</button>
+                </fieldset>
+            </form>
+        </div>
+        <hr/>
+        <h3>Name not listed?</h3>
+
+        <p>Add it below, and it'll appear in the list</p>
+
+        <div>
+            <form id="person" name="person">
+                <fieldset name="personFields">
+                    <div>Person</div>
+                <span><input type="text" required="required" id="firstName" name="firstName"
+                             placeholder="First Name" class="form-control"></span>
+                <span><input type="text" required="required" id="lastName" name="lastName"
+                             placeholder="Last Name" class="form-control"></span>
+
+                    <div class="button_container">
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
-    <hr/>
-    <h2>Name not listed?</h2>
-    <p>Add it below, and it'll appear in the list</p>
-    <div>
-        <form id="person" name="person">
-            <fieldset name="personFields">
-                <div>Person</div>
-                <span><input type="text" required="required" id="firstName" name="firstName" placeholder="First Name"></span>
-                <span><input type="text" required="required" id="lastName" name="lastName" placeholder="Last Name"></span>
-                <div class="button_container">
-                <button type="submit" class="button">Add</button>
-                </div>
-            </fieldset>
-        </form>
+    <div id="assetNotAvailable" class="hide">
+        <h1>Asset Not Available</h1>
+
+        <p>Unfortunately, that asset is not available at the moment. <span id="personWhoReservedTheAsset"></span> has
+            reserved the asset.
+            Ask them to check it back in</p>
     </div>
-</div>
-<div id="assetNotAvailable" class="hide">
-    <h1>Asset Not Available</h1>
-    <p>Unfortunately, that asset is not available at the moment.  <span id="personWhoReservedTheAsset"></span> has reserved the asset.
-        Ask them to check it back in</p>
 </div>
 
 </body>

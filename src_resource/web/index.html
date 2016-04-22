@@ -1,33 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link type="text/css" media="all" rel="stylesheet" href="css/style.css"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Asset Library - Assets</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
     <script src="js/$.js" type="application/javascript"></script>
     <script src="js/x.js" type="application/javascript"></script>
     <script src="js/assets.js" type="application/javascript"></script>
+    <script src="js/jquery-1.11.3.js"></script>
     <script>
-        window.onload = function() {
-            Assets.Controller.init("assetsTarget", "addAssetButton", "returnAssetButton", "qrCodeButton");
+        jQuery.noConflict();
+        window.onload = function () {
+            Assets.Controller.init("assetsTarget", "addAssetButton", "returnAssetButton");
         };
     </script>
-    <title>Asset Library - Assets</title>
+    <style>
+        .btn-space {
+            margin-right: 5px;
+        }
+    </style>
 </head>
 <body>
-<h1>Asset Repository</h1>
-<div class="table_row button_container">
-    <div class="table_cell">
-        <button class="button" id="addAssetButton">+ Add Asset</button>
+<div class="container">
+    <div class="page-header">
+        <h1>Asset Repository</h1>
+        <p class="lead">Add and manage assets</p>
     </div>
-    <div class="table_cell">
-        <button class="button" id="returnAssetButton">&gt; Return Asset</button>
-    </div>
-    <div class="table_cell">
-        <button class="button" id="qrCodeButton">Generate QRCode</button>
-    </div>
-</div>
-<h3>List of Assets</h3>
-<div id="assetsTarget" class="list_of_assets"></div>
+    <button class="btn btn-primary" id="addAssetButton">+ Add Asset</button>
+    <button class="btn btn-primary" id="returnAssetButton">&gt; Return Asset</button>
+    <h3>List of Assets</h3>
+<hr/>
+    <div id="assetsTarget" class="list_of_assets"></div>
 
+</div>
+<script src="js/bootstrap.js"></script>
 </body>
 </html>

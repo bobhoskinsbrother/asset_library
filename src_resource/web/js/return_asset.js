@@ -102,10 +102,10 @@ var ReturnAsset = {
             }
         },
         "addFailureNotification": function (target, message) {
-            ReturnAsset.Controller._addNotification(target, "failure_message", message);
+            ReturnAsset.Controller._addNotification(target, "alert alert-danger", message);
         },
         "addSuccessNotification": function (target, message) {
-            ReturnAsset.Controller._addNotification(target, "success_message", message);
+            ReturnAsset.Controller._addNotification(target, "alert alert-success", message);
         },
         "_addNotification": function (target, className, message) {
             ReturnAsset.Controller.removeChildren(target);
@@ -144,7 +144,7 @@ var ReturnAsset = {
             $(selectTarget).appendChild($select);
         },
         "makeSelect": function (id) {
-            var $select = $e("select", {"id": id, "name": id, "required": "required"});
+            var $select = $e("select", {"id": id, "name": id, "required": "required", "class":"form-control"});
             var $pleaseSelectOption = ReturnAsset.View.makeOption("Please Select", "");
             $select.appendChild($pleaseSelectOption);
             return $select;

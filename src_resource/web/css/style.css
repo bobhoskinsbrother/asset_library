@@ -1,125 +1,5 @@
-@font-face {
-    font-family: "open_sansregular";
-    src: url("/fonts/opensans-regular-webfont.eot");
-    src: url("/fonts/opensans-regular-webfont.eot?#iefix") format("embedded-opentype"),
-    url("/fonts/opensans-regular-webfont.woff") format("woff"),
-    url("/fonts/opensans-regular-webfont.ttf") format("truetype"),
-    url("/fonts/opensans-regular-webfont.svg#open_sansregular") format("svg");
-    font-weight: normal;
-    font-style: normal;
-}
-
-h1,h2,h3,h4, body, p {
-    font-family: open_sansregular, sans-serif;
-    font-size: 0.95em;
-}
-
-hr {
-    border: 0 solid #FFFFFF;
-    border-top: 2px dashed #999999;
-}
-
-.table_row {
-    clear: both;
-    display: table-row;
-    width: 100%;
-    background: #FFFFFF;
-    margin-bottom: 2px;
-}
-
-.table_header {
-    font-weight: bold;
-}
-
-.table_cell, .button_table_cell {
-    display: table-cell;
-    padding: 2px;
-}
-
-.table_cell {
-    width: 22%;
-}
-
-.button {
-    min-width: 100px;
-    width: 100%;
-    height: 35px;
-    color: #FFFFFF;
-    background: #0F418C;
-    border: 1px solid #0F418C;
-    font-weight: bold;
-    font-size: 1.1em;
-    cursor: pointer;
-}
-
-input, select, textarea {
-    width:100%;
-}
-
-
-
-fieldset {
-    width: 75%;
-    margin: auto;
-}
-
-
-fieldset, .button {
-    border-radius: 4px;
-}
-
-
-.button_container {
-    width: 15%;
-    margin-top: 10px;
-}
-
-.form_label {
-    width: 15%;
-}
-
-.button_table_cell {
-    width: 11%;
-    font-size: 10px;
-}
-
-.list_of_assets {
-    width: 85%;
-    margin: auto;
-    padding: 2px;
-}
-
-.add_asset_button, .edit_asset_button {
-    font-weight: bold;
-}
-
 .hide {
     display: none;
-}
-
-.asset_info {
-    width: 250px;
-}
-
-.blurb {
-    font-size: 0.8em;
-}
-
-.success_message, .failure_message {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.success_message {
-    background: #AAFFAA;
-    border: 1px solid #008800;
-    color: #008800;
-}
-
-.failure_message {
-    background: #FFAAAA;
-    border: 1px solid #880000;
-    color: #880000;
 }
 
 @media print {
@@ -129,14 +9,12 @@ fieldset, .button {
 }
 
 @media screen {
-
     .home {
         float: right;
         width: 70px;
         height: 55px;
         background: #0F418C url("/images/home.png") center no-repeat;
-        border-radius: 3px;
-        border: 1px solid #000000;
         cursor: pointer;
     }
 }
+
